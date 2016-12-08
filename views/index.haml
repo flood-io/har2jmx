@@ -1,0 +1,13 @@
+%header.page-title.fader
+  .container
+    .row
+      .span12
+        %h1 .har to .jmx converter
+.main
+  .container
+    .row
+      .span12
+        %form#har2jmx{action: "/har2jmx", method: "POST"}
+          %textarea{name: 'har'}
+          %input.btn.btn-custom.btn-blue{name: "commit", type: "submit", value: "Convert"}
+          %input.btn.btn-custom.btn-gray{name: "commit", type: "reset", value: "Reset"}
