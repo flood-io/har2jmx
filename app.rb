@@ -29,9 +29,7 @@ def convert
 
       generate_test_plan(har, file)
 
-      file.rewind
-
-      send_data file.read, filename: 'test.jmx'
+	  send_file file, :filename => 'test.jmx', :type => 'text/xml'
     else
       400
     end
@@ -61,13 +59,13 @@ def generate_test_plan(har, file)
               entry.request.postData.params.map { |param| [param.name, param.value] }.flatten
 
             if params
-              public_send entry.request.to_h.values.first.to_s.downcase, entry.request.url, fill_in: Hash[*params] do
+              public_send entry.request.to_h[:method].downcase, entry.request.url, fill_in: Hash[*params] do
                 with_xhr if entry.request.headers.to_s =~ /XMLHttpRequest/
               end
             end
 
             if entry.request.postData && entry.request.postData.text
-              method = entry.request.to_h.values.first.try(:downcase)
+              method = entry.request.to_h[:method].downcase
               method = 'post' if method == 'connect'
               if method
                 public_send(method,
@@ -77,7 +75,7 @@ def generate_test_plan(har, file)
                 end
               end
             else
-              method = entry.request.to_h.values.first.try(:downcase)
+              method = entry.request.to_h[:method].downcase
               if method
                 public_send(method, entry.request.url) do
                   with_xhr if entry.request.headers.to_s =~ /XMLHttpRequest/
