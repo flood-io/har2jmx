@@ -16,7 +16,7 @@ GEM
     netrc (0.11.0)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-    rack (1.6.5)
+    rack (1.6.13)
     rack-protection (1.5.3)
       rack
     recursive-open-struct (0.5.0)
